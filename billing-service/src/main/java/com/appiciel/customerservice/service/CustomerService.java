@@ -1,8 +1,8 @@
-package com.appiciel.billingservice.service;
+package com.appiciel.customerservice.service;
 
-import com.appiciel.billingservice.domain.Customer;
-import com.appiciel.billingservice.dto.CustomerRequestDTO;
-import com.appiciel.billingservice.dto.CustomerResponseDTO;
+import com.appiciel.customerservice.domain.Customer;
+import com.appiciel.customerservice.dto.CustomerRequestDTO;
+import com.appiciel.customerservice.dto.CustomerResponseDTO;
 
 import java.util.List;
 

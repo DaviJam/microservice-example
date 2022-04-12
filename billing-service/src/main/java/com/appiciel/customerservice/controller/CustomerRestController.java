@@ -1,8 +1,8 @@
-package com.appiciel.billingservice.controller;
+package com.appiciel.customerservice.controller;
 
-import com.appiciel.billingservice.dto.CustomerRequestDTO;
-import com.appiciel.billingservice.dto.CustomerResponseDTO;
-import com.appiciel.billingservice.service.CustomerService;
+import com.appiciel.customerservice.dto.CustomerRequestDTO;
+import com.appiciel.customerservice.dto.CustomerResponseDTO;
+import com.appiciel.customerservice.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

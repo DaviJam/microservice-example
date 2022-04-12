@@ -1,10 +1,10 @@
-package com.appiciel.billingservice.service;
+package com.appiciel.customerservice.service;
 
-import com.appiciel.billingservice.domain.Customer;
-import com.appiciel.billingservice.dto.CustomerRequestDTO;
-import com.appiciel.billingservice.dto.CustomerResponseDTO;
-import com.appiciel.billingservice.mapper.CustomerMapper;
-import com.appiciel.billingservice.repository.CustomerRepository;
+import com.appiciel.customerservice.domain.Customer;
+import com.appiciel.customerservice.dto.CustomerRequestDTO;
+import com.appiciel.customerservice.dto.CustomerResponseDTO;
+import com.appiciel.customerservice.mapper.CustomerMapper;
+import com.appiciel.customerservice.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.appiciel.billingservice.domain;
+package com.appiciel.customerservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

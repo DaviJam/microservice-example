@@ -1,17 +1,17 @@
-package com.appiciel.billingservice;
+package com.appiciel.customerservice;
 
-import com.appiciel.billingservice.dto.CustomerRequestDTO;
-import com.appiciel.billingservice.service.CustomerService;
+import com.appiciel.customerservice.dto.CustomerRequestDTO;
+import com.appiciel.customerservice.service.CustomerService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class BillingServiceApplication {
+public class CustomerServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BillingServiceApplication.class, args);
+        SpringApplication.run(CustomerServiceApplication.class, args);
     }
 
     @Bean

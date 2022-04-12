@@ -1,4 +1,4 @@
-package com.appiciel.billingservice.dto;
+package com.appiciel.customerservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
