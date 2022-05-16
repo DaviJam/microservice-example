@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CustomerRestController {
 
     private CustomerService customerService;
@@ -25,7 +26,6 @@ public class CustomerRestController {
 
     @PostMapping(path = "/customers")
     public CustomerResponseDTO save(@RequestBody CustomerRequestDTO customerRequestDTO){
-        customerRequestDTO.setId(UUID.randomUUID().toString());
         return customerService.save(customerRequestDTO);
     }
 
