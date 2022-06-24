@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+     environment {
+            PROJECT_NAME = "discovery-service"
+        }
+
+    stages
+    {
+        stage('SCM')
+        {
+            steps
+            {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/DaviJam/microservice-example.git']]])
+            }
+        }
+
+        stage('Compile')
+        {
+            steps
+            {
+                sh("mvn -f ./${env.PROJECT_NAME} clean compile")
+            }
+        }
+
+        stage('Test')
+        {
+            steps {
+                sh("mvn -f ./${env.PROJECT_NAME} test")
+            }
+            post {
+               success {
+                    junit '**/target/surefire-reports/*.xml'
+                    step([$class: 'JacocoPublisher',
+                        execPattern: 'target/*.exec',
+                        classPattern: 'target/classes',
+                        sourcePattern: 'src/main/java',
+                        exclusionPattern: 'src/test*'
+                    ])
+               }
+               failure {
+                   mail bcc: '', body: '''Please check this job : ${JOB_URL}
+                   Your partner Jenkins''', cc: '', from: '', replyTo: '', subject: 'Build ${BUILD_TAG} Failed ', to: 'appiciel@outlook.fr'
+               }
+            }
+        }
+
+        stage('Docs') {
+            steps{
+                sh('mvn -f ./${env.PROJECT_NAME} javadoc:javadoc')
+            }
+        }
+
+        stage('Deploy to docker registry') {
+             environment {
+                DOCKER_ACCESS = credentials('jenkins-docker-access')
+            }
+            steps{
+                // login to docker hub
+                sh('docker login --username $DOCKER_ACCESS_USR --password $DOCKER_ACCESS_PSW')
+                // build image
+                sh('docker build --tag ${env.PROJECT_NAME}-ms:latest .')
+                // tag image in order to push to registry
+                sh('docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
+                // push to hub
+                sh('docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
+
+            }
+        }
+
+        stage('Save to Nexus Repository') {
+            steps {
+             configFileProvider([configFile(fileId: 'nexus-repository', variable: 'MAVEN_SETTINGS')]) {
+                    sh('mvn -s $MAVEN_SETTINGS -f ./${env.PROJECT_NAME} clean deploy')
+                }
+            }
+        }
+
+//         stage('Deploy to AWS') {
+//             steps {
+// //                 //use aws
+// //                  withVault([configuration: configuration, vaultSecrets: secrets]) {
+// //                             sh "echo ${env.PRIVATE_TOKEN}"
+// //                             sh "echo ${env.PUBLIC_TOKEN}"
+// //                             sh "echo ${env.API_KEY}"
+// //                           }
+//                 sh("mvn clean deploy -Paws")
+//             }
+//         }
+    }
+}
