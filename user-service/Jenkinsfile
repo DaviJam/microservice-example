@@ -46,7 +46,7 @@ pipeline {
 
         stage('Docs') {
             steps{
-                sh('mvn -f ./${env.PROJECT_NAME} javadoc:javadoc')
+                sh("mvn -f ./${env.PROJECT_NAME} javadoc:javadoc")
             }
         }
 
@@ -56,13 +56,13 @@ pipeline {
             }
             steps{
                 // login to docker hub
-                sh('docker login --username $DOCKER_ACCESS_USR --password $DOCKER_ACCESS_PSW')
+                sh("docker login --username $DOCKER_ACCESS_USR --password $DOCKER_ACCESS_PSW")
                 // build image
-                sh('docker build --tag ${env.PROJECT_NAME}-ms:latest .')
+                sh("docker build --tag ${env.PROJECT_NAME}-ms:latest .")
                 // tag image in order to push to registry
-                sh('docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
+                sh("docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER")
                 // push to hub
-                sh('docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
+                sh("docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
 
             }
         }
@@ -70,7 +70,7 @@ pipeline {
         stage('Save to Nexus Repository') {
             steps {
              configFileProvider([configFile(fileId: 'nexus-repository', variable: 'MAVEN_SETTINGS')]) {
-                    sh('mvn -s $MAVEN_SETTINGS -f ./${env.PROJECT_NAME} clean deploy')
+                    sh("mvn -s $MAVEN_SETTINGS -f ./${env.PROJECT_NAME} clean deploy")
                 }
             }
         }
