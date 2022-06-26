@@ -10,6 +10,7 @@ pipeline {
         {
             steps
             {
+                echo("SCM")
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/DaviJam/microservice-example.git']]])
             }
         }
@@ -18,6 +19,7 @@ pipeline {
         {
             steps
             {
+                echo("Compile")
                 sh("mvn -f ./${env.PROJECT_NAME} clean compile")
             }
         }
