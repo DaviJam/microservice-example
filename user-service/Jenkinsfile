@@ -56,13 +56,13 @@ pipeline {
             }
             steps{
                 // login to docker hub
-                sh("docker login --username $DOCKER_ACCESS_USR --password $DOCKER_ACCESS_PSW")
+                sh 'echo $DOCKER_ACCESS_PSW | docker login --username $DOCKER_ACCESS_USR --password-stdin'
                 // build image
-                sh("docker build --tag ${env.PROJECT_NAME}-ms:latest .")
+                sh("docker build -f ./${env.PROJECT_NAME}/Dockerfile --tag ${env.PROJECT_NAME}-ms:latest .")
                 // tag image in order to push to registry
                 sh("docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER")
                 // push to hub
-                sh("docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER')
+                sh("docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER")
 
             }
         }
