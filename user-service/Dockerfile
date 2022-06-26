@@ -18,6 +18,7 @@ RUN mvn clean package -DskipTests=true
 
 # Expose port 80 on this container
 EXPOSE 80
+EXPOSE 8086
 
 # Go to target directory
 WORKDIR ./target
