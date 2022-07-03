@@ -60,9 +60,9 @@ pipeline {
                 // build image
                 sh("docker build -f ./${env.PROJECT_NAME}/Dockerfile --tag ${env.PROJECT_NAME}-ms:latest .")
                 // tag image in order to push to registry
-                sh("docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER")
+                sh("docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms")
                 // push to hub
-                sh("docker push dada971/${env.PROJECT_NAME}-ms:v$BUILD_NUMBER")
+                sh("docker push dada971/${env.PROJECT_NAME}-ms")
 
             }
         }
