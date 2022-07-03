@@ -24,4 +24,4 @@ EXPOSE 9999
 WORKDIR ./target
 
 # Run the springboot app
-CMD ["java", "${PROJECT}-0.0.1-SNAPSHOT.jar"]
+CMD ["sh","-c","java -jar ${PROJECT}-0.0.1-SNAPSHOT.jar"]
