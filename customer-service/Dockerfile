@@ -3,6 +3,7 @@ FROM maven:3.8.4-openjdk-11
 
 # Define environment variable
 ARG PROJECT
+ENV PROJECT_ENV=$PROJECT
 
 # Update
 RUN apt-get update
@@ -24,4 +25,4 @@ EXPOSE 8082
 WORKDIR ./target
 
 # Run the springboot app
-CMD ["sh","-c","java -jar ${PROJECT}-0.0.1-SNAPSHOT.jar"]
+CMD ["sh","-c","java -jar ${PROJECT_ENV}-0.0.1-SNAPSHOT.jar"]
