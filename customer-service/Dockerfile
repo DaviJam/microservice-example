@@ -2,7 +2,7 @@
 FROM maven:3.8.4-openjdk-11
 
 # Define environment variable
-ENV PROJECT=customer-service
+ARG PROJECT
 
 # Update
 RUN apt-get update

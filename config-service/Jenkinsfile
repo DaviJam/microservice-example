@@ -58,7 +58,7 @@ pipeline {
                 // login to docker hub
                 sh 'echo $DOCKER_ACCESS_PSW | docker login --username $DOCKER_ACCESS_USR --password-stdin'
                 // build image
-                sh("docker build -f ./${env.PROJECT_NAME}/Dockerfile --tag ${env.PROJECT_NAME}-ms:latest .")
+                sh("docker build -f ./${env.PROJECT_NAME}/Dockerfile --build-arg PROJECT=${env.PROJECT_NAME} --tag ${env.PROJECT_NAME}-ms:latest .")
                 // tag image in order to push to registry
                 sh("docker tag ${env.PROJECT_NAME}-ms:latest dada971/${env.PROJECT_NAME}-ms")
                 // push to hub
